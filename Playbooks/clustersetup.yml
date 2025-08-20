@@ -11,10 +11,8 @@
       https: true
       validate_certs: false
   tasks:
-  - name: Prep AWX
-    command: docker run --rm --name kind_deploy -v /var/run/docker.sock:/var/run/docker.sock -t --entrypoint docker schmots1/kind_awx start kind-control-plane
-  - name: Create Aggregates
-    na_ontap_aggregate:
+ - name: Create Aggregates
+   na_ontap_aggregate:
       state: present
       raid_size: 6
       disk_count: 6
