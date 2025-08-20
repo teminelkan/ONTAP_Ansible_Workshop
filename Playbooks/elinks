@@ -1,0 +1,7 @@
+---
+- hosts: prod
+  become: true
+  name: install elinks
+  tasks:
+  - name: Install elinks package
+    yum: pkg=elinks state=latest
