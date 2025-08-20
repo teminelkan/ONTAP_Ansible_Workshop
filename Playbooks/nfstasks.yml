@@ -1,5 +1,3 @@
-nfstasks.yml
-
 ---
 - hosts: localhost
   collections:
@@ -65,4 +63,5 @@ nfstasks.yml
       https: true
       validate_certs: false
       space_guarantee: "none"
+
       volume_security_style: unix
