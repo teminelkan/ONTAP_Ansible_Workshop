@@ -1,0 +1,9 @@
+---
+- hosts: prod
+  become: true
+  become_method: sudo
+  tasks:
+  - name: Install nginx package
+    yum: name=nginx state=present
+  - name: Enable & Start the nginx service
+    service: name=nginx state=started enabled=yes
