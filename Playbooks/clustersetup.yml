@@ -1,0 +1,77 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  vars:
+    ansible_become_password: Netapp1!
+    input: &input
+      hostname: 192.168.0.101
+      username: admin
+      password: Netapp1!
+      https: true
+      validate_certs: false
+  tasks:
+  - name: Prep AWX
+    command: docker run --rm --name kind_deploy -v /var/run/docker.sock:/var/run/docker.sock -t --entrypoint docker schmots1/kind_awx start kind-control-plane
+  - name: Create Aggregates
+    na_ontap_aggregate:
+      state: present
+      raid_size: 6
+      disk_count: 6
+      name: "{{ item }}"
+      <<: *input
+    loop:
+      - aggr1
+      - aggr2
+  - name: Create SVM
+    na_ontap_svm:
+      state: present
+      name: ansible_vserver
+      root_volume: ansible_vserver_root
+      root_volume_aggregate: aggr1
+      root_volume_security_style: unix
+      <<: *input
+  - name: Create interface
+    na_ontap_interface:
+      state: present
+      interface_name: "ansible_vserver_mgmt_data_1"
+      home_port: e0d
+      home_node: cluster1-01
+      role: data
+      protocols: nfs
+      admin_status: up
+      failover_policy: local-only
+      firewall_policy: mgmt
+      is_auto_revert: true
+      address: 192.168.0.121
+      netmask: 255.255.255.0
+      vserver: ansible_vserver
+      use_rest: Never
+      <<: *input
+  - name: change nfs status
+    na_ontap_nfs:
+      state: present
+      service_state: started
+      vserver: ansible_vserver
+      nfsv3: enabled
+      nfsv4: disabled
+      nfsv41: disabled
+      tcp: enabled
+      udp: enabled
+      vstorage_state: disabled
+      <<: *input
+  - name: Setup default rules
+    na_ontap_export_policy_rule:
+      state: present
+      policy_name: default
+      vserver: ansible_vserver
+      client_match: 0.0.0.0/0
+      ro_rule: any
+      rw_rule: none
+      super_user_security: none
+      <<: *input
+  - name: Add SSHPASS local
+    package:
+      name: sshpass
+      state: present
+    become: yes
