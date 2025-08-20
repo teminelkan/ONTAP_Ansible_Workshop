@@ -19,8 +19,8 @@
       name: "{{ vol_name }}"
       vserver: "{{ vserver }}"
       aggregate_name: "{{ aggr }}"
-      size: 15
-      size_unit: mb
+      size: 3
+      size_unit: gb
       policy: default
       wait_for_completion: True
       junction_path: "/{{ vol_name }}"
@@ -30,3 +30,4 @@
       https: true
 
       validate_certs: false
+
