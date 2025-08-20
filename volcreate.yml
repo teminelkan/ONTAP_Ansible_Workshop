@@ -1,5 +1,3 @@
-volcreate_01.yml
-
 ---
 - hosts: localhost
   collections:
@@ -11,13 +9,9 @@ volcreate_01.yml
     vserver: ansible_vserver
     aggr: ansible_lab_01_aggr1
     vol_name: DemoVol
-
-  vars_prompt:
-    - name: "netapp_password"
-      prompt: "Enter the NetApp Admin Password"
-      private: true
-      confirm: true
-
+    username: admin
+    password: NetApp1!
+    
   tasks:
   - name: Volume Create
     na_ontap_volume:
@@ -34,4 +28,5 @@ volcreate_01.yml
       username: "{{ username }}"
       password: "{{ password }}"
       https: true
+
       validate_certs: false
