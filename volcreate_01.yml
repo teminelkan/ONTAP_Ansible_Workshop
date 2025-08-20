@@ -1,0 +1,37 @@
+volcreate_01.yml
+
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  name: Volume Action
+  vars:
+    hostname: 192.168.64.140
+    username: admin
+    vserver: ansible_vserver
+    aggr: ansible_lab_01_aggr1
+    vol_name: DemoVol
+
+  vars_prompt:
+    - name: "netapp_password"
+      prompt: "Enter the NetApp Admin Password"
+      private: true
+      confirm: true
+
+  tasks:
+  - name: Volume Create
+    na_ontap_volume:
+      state: present
+      name: "{{ vol_name }}"
+      vserver: "{{ vserver }}"
+      aggregate_name: "{{ aggr }}"
+      size: 15
+      size_unit: mb
+      policy: default
+      wait_for_completion: True
+      junction_path: "/{{ vol_name }}"
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
