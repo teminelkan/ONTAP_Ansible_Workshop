@@ -9,7 +9,7 @@
     aggr: aggr1
     vol_name: DemoVol
     username: admin
-    password: NetApp1!
+    password: Netapp1!
     export_policy:
     
   tasks:
@@ -30,6 +30,7 @@
       password: "{{ password }}"
       https: true
       validate_certs: false
+
 
 
 
