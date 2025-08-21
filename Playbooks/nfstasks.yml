@@ -8,7 +8,7 @@
     username: admin
     vserver: ansible_vserver
     aggr: ansible_lab_01_aggr1
-    vol_name: DemoVol
+    vol_name: SQLVol
     client_match: 192.168.0.0/24
 
   vars_prompt:
@@ -53,7 +53,7 @@
       vserver: "{{ vserver }}"
       aggregate_name: "{{ aggr }}"
       size: 25
-      size_unit: mb
+      size_unit: gb
       policy: "{{ vol_name }}_policy"
       wait_for_completion: True
       junction_path: "/{{ vol_name }}"
@@ -65,3 +65,4 @@
       space_guarantee: "none"
 
       volume_security_style: unix
+
