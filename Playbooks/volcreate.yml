@@ -4,7 +4,7 @@
     - netapp.ontap
   name: Volume Action
   vars:
-    hostname: 192.168.64.140
+    hostname: 192.168.0.101
     vserver: ansible_vserver
     aggr: ansible_lab_01_aggr1
     vol_name: DemoVol
@@ -29,5 +29,6 @@
       https: true
 
       validate_certs: false
+
 
 
