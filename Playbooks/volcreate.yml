@@ -27,8 +27,8 @@
       username: "{{ username }}"
       password: "{{ password }}"
       https: true
-
       validate_certs: false
+
 
 
 
