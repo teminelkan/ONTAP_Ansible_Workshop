@@ -18,6 +18,10 @@
       disk_count: 6
       name: "{{ item }}"
       <<: *input
+      use_rest: never
+      nodes:
+        - cluster1-01
+        - cluster1-02
     loop:
       - aggr1
       - aggr2
@@ -29,6 +33,7 @@
       root_volume_aggregate: aggr1
       root_volume_security_style: unix
       <<: *input
+      use_rest: never
   - name: Create interface
     na_ontap_interface:
       state: present
