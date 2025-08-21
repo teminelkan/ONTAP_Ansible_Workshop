@@ -6,7 +6,7 @@
   vars:
     hostname: 192.168.0.101
     vserver: ansible_vserver
-    aggr: ansible_lab_01_aggr1
+    aggr: aggr1
     vol_name: DemoVol
     username: admin
     password: NetApp1!
@@ -28,6 +28,7 @@
       password: "{{ password }}"
       https: true
       validate_certs: false
+
 
 
 
