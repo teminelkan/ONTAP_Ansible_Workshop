@@ -30,8 +30,9 @@
       junction_path: "/{{ vol_name }}"
       hostname: "{{ hostname }}"
       username: "{{ username }}"
-      password: "{{ password }}"
+      password: "{{ netapp_password }}"
       https: true
 
       validate_certs: false
+
 
