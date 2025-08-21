@@ -11,7 +11,7 @@
       private: true
       confirm: true
   vars:
-    netapp_hostname: 192.168.64.140
+    netapp_hostname: 192.168.0.101
     netapp_username: admin
 
   tasks:
@@ -27,4 +27,5 @@
   - name: Print ONTAP Response
     debug:
       msg: "{{ info }}"
+
 
