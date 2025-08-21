@@ -5,7 +5,6 @@
   name: Volume Action
   vars:
     hostname: 192.168.64.140
-    username: admin
     vserver: ansible_vserver
     aggr: ansible_lab_01_aggr1
     vol_name: DemoVol
@@ -30,4 +29,5 @@
       https: true
 
       validate_certs: false
+
 
