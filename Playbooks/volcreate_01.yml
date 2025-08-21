@@ -8,7 +8,7 @@
     username: admin
     vserver: ansible_vserver
     aggr: ansible_lab_01_aggr1
-    vol_name: DemoVol
+    vol_name: DemoVol01
 
   vars_prompt:
     - name: "netapp_password"
@@ -24,7 +24,7 @@
       vserver: "{{ vserver }}"
       aggregate_name: "{{ aggr }}"
       size: 15
-      size_unit: mb
+      size_unit: gb
       policy: default
       wait_for_completion: True
       junction_path: "/{{ vol_name }}"
@@ -34,3 +34,4 @@
       https: true
 
       validate_certs: false
+
