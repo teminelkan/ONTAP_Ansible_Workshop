@@ -2,12 +2,12 @@
 - hosts: localhost
   collections:
     - netapp.ontap
-  name: Volume Action
+  name: NFS Trio Tasks
   vars:
-    hostname: 192.168.64.140
+    hostname: "192.168.0.101"
     username: admin
     vserver: ansible_vserver
-    aggr: ansible_lab_01_aggr1
+    aggr: aggr1
     vol_name: SQLVol
     client_match: 192.168.0.0/24
 
@@ -63,6 +63,7 @@
       https: true
       validate_certs: false
       space_guarantee: "none"
-
       volume_security_style: unix
+      use_rest: never
+
 
