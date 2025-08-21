@@ -4,12 +4,13 @@
     - netapp.ontap
   name: Volume Action
   vars:
-    hostname: 192.168.0.101
+    hostname: "192.168.0.101"
     vserver: ansible_vserver
     aggr: aggr1
     vol_name: DemoVol
     username: admin
     password: NetApp1!
+    export_policy:
     
   tasks:
   - name: Volume Create
@@ -20,7 +21,8 @@
       aggregate_name: "{{ aggr }}"
       size: 3
       size_unit: gb
-      policy: default
+      policy: "{{ export_policy }}"
+      space_guarantee: "none"
       wait_for_completion: True
       junction_path: "/{{ vol_name }}"
       hostname: "{{ hostname }}"
@@ -28,6 +30,7 @@
       password: "{{ password }}"
       https: true
       validate_certs: false
+
 
 
 
