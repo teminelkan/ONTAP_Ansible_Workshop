@@ -25,13 +25,13 @@
       space_guarantee: "none"
       wait_for_completion: True
       junction_path: "/{{ vol_name }}"
-      tiering_policy: none
       hostname: "{{ hostname }}"
       username: "{{ username }}"
       password: "{{ password }}"
       https: true
       validate_certs: false
       use_rest: never
+
 
 
 
