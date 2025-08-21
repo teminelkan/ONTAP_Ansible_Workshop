@@ -43,7 +43,6 @@
       vserver: "{{ vserver }}"
       protocol: nfs,nfs3
       validate_certs: false
-      allow_suid: true
       https: true
 
   - name: Volume Create
@@ -65,5 +64,6 @@
       space_guarantee: "none"
       volume_security_style: unix
       use_rest: never
+
 
 
