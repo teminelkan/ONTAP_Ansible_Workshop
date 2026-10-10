@@ -29,7 +29,7 @@
       password: "{{ password }}"
       validate_certs: false
       https: true
-      when: protocol.lower() == 'nfs'
+    when: protocol.lower() == 'nfs'
       
   - name: setup export policy rules
     na_ontap_export_policy_rule:
@@ -46,7 +46,7 @@
       protocol: nfs,nfs3
       validate_certs: false
       https: true
-      when: protocol.lower() == 'nfs'
+    when: protocol.lower() == 'nfs'
       
   - name: Volume Create
     na_ontap_volume:
