@@ -1,0 +1,47 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  name: Volume Action
+  gather_facts: false 
+  vars:
+    hostname: "192.168.0.101"
+    vserver: ansible_vserver
+    aggr: aggr1
+    vol_name: DemoVol
+    username: admin
+    password: Netapp1!
+    export_policy:
+    
+  tasks:
+  - name: Volume Create
+    na_ontap_volume:
+      state: present
+      name: "{{ item }}"
+      vserver: "{{ vserver }}"
+      aggregate_name: "{{ aggr }}"
+      size: "{{ size }}"
+      size_unit: gb
+      policy: "{{ export_policy }}"
+      space_guarantee: "none"
+      wait_for_completion: True
+      junction_path: "/{{ item }}"
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
+      use_rest: never
+    Loop:
+      - vol1
+      - vol2
+      - vol3
+
+
+
+
+
+
+
+
+
