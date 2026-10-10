@@ -73,8 +73,3 @@
       rw_rule: none
       super_user_security: none
       <<: *input
-  - name: Add SSHPASS local
-    package:
-      name: sshpass
-      state: present
-    become: yes
