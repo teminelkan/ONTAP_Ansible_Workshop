@@ -1,0 +1,71 @@
+---
+- hosts: localhost
+  collections:
+    - netapp.ontap
+  name: NFS Trio Tasks
+  vars:
+    hostname: "192.168.0.101"
+    username: admin
+    vserver: ansible_vserver
+    aggr: aggr1
+    vol_name: SQLVol_2
+    client_match: 192.168.0.0/24
+    protocol: nfs
+
+  vars_prompt:
+    - name: "password"
+      prompt: "Enter the NetApp Admin Password"
+      private: true
+      confirm: true
+
+  tasks:
+  - name: create export policy
+    na_ontap_export_policy:
+      state: present
+      name: "{{ vol_name }}_policy_2"
+      vserver: "{{ vserver }}"
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      validate_certs: false
+      https: true
+      when: protocol.lower() == 'nfs'
+      
+  - name: setup export policy rules
+    na_ontap_export_policy_rule:
+      state: present
+      name: "{{ vol_name }}_policy"
+      client_match: "{{ client_match }}"
+      ro_rule: sys
+      rw_rule: sys
+      super_user_security: sys
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      vserver: "{{ vserver }}"
+      protocol: nfs,nfs3
+      validate_certs: false
+      https: true
+      when: protocol.lower() == 'nfs'
+      
+  - name: Volume Create
+    na_ontap_volume:
+      state: present
+      name: "{{ vol_name }}"
+      vserver: "{{ vserver }}"
+      aggregate_name: "{{ aggr }}"
+      size: 15
+      size_unit: gb
+      policy: "{{ vol_name }}_policy"
+      wait_for_completion: True
+      junction_path: "/{{ vol_name }}"
+      hostname: "{{ hostname }}"
+      username: "{{ username }}"
+      password: "{{ password }}"
+      https: true
+      validate_certs: false
+      space_guarantee: "none"
+      volume_security_style: unix
+      use_rest: never
+
+
